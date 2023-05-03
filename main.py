@@ -1,7 +1,7 @@
 from typing import Union
-import os
 from fastapi import FastAPI
 from data import PN
+import os
 import json
 
 app = FastAPI()
@@ -38,7 +38,7 @@ def read_barrier_item(item_id: int):
 
 #Get bell without id
 @app.get("/bells")
-def read_bell(q):
+def read_bell():
     return {f"bell n°{k}":json.load(open(os.path.join(bell_path, v))) for k,v in (dict(enumerate(bell_list,1))).items()}
 
 #Get bell with id
