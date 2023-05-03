@@ -1,0 +1,15 @@
+[ 
+    { 
+        "GENERIC_DATA": [ 
+            { 
+                "device_name": "bar-c100x-abcd1234", 
+                "start_time": 1678123467, 
+                "start_angle": 83.0, 
+                "end_time": 1678123482, 
+                "end_angle": 1.3 
+            } 
+        ] 
+    } 
+] 
+
+
