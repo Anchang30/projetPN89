@@ -1,69 +1,68 @@
-from typing import Union
 from fastapi import FastAPI
-from data import PN
-import os
-import json
+from datetime import datetime
+from db import Barrier, Bell, Light, db
 
 app = FastAPI()
 
-barrier_list = PN().get_barrier_data()
-bell_list = PN().get_bell_data()
-light_list = PN().get_light_data()
-barrier_path = os.path.join(PN().root_path,"data","barrier_files")
-bell_path = os.path.join(PN().root_path,"data","bell_files")
-light_path = os.path.join(PN().root_path,"data","light_files")
+#########################################################
+## POST SECTION
+# Added events are listed by their timestamp, converted in specified format (%Y-%m-%d %H:%M:%S)
+
+@app.post("/barrier/{bar_id}")
+def add_barrier_event (bar_id : int, event : Barrier):
+   db["barriers"][f"barrier {bar_id}"][datetime.fromtimestamp(event.start_time).strftime('%Y-%m-%d %H:%M:%S')] = event
+   return db["barriers"][f"barrier {bar_id}"]
+
+@app.post("/bell/{bell_id}")
+def add_bell_event (bell_id : int, event : Bell):
+   db["bells"][f"bell {bell_id}"][datetime.fromtimestamp(event.start_time).strftime('%Y-%m-%d %H:%M:%S')] = event
+   return db["bells"][f"bell {bell_id}"]
+      
+@app.post("/light/{light_id}")
+def add_light_event (light_id : int, event : Light):
+   db["lights"][f"light {light_id}"][datetime.fromtimestamp(event.start_time).strftime('%Y-%m-%d %H:%M:%S')] = event
+   return db["lights"][f"light {light_id}"]
+   
+#########################################################
+## GET SECTION
 
 @app.get("/")
 def read_root():
-    os.path
     return {"Hello": "World"}
-
-
-#Get barrier without id
-@app.get("/barriers")
-def read_barrier():
-    return {f"barrier n°{k}":json.load(open(os.path.join(barrier_path, v))) for k,v in (dict(enumerate(barrier_list,1))).items()}
 
 #Get barrier with id
 @app.get("/barriers/{item_id}")
 def read_barrier_item(item_id: int):
-    barrier_file_size = len(barrier_list)
-    if item_id > barrier_file_size :
-        return {f"We have no barrier n°{item_id}in  our data source":[]}
-    else :
-        barrier_file = f"{barrier_path}/barrier{item_id}.json"
-        return {f"barrier n°{item_id}": json.load(open(barrier_file))}
-
-
-
-#Get bell without id
-@app.get("/bells")
-def read_bell():
-    return {f"bell n°{k}":json.load(open(os.path.join(bell_path, v))) for k,v in (dict(enumerate(bell_list,1))).items()}
+   return db["barriers"][f"barrier {item_id}"]
 
 #Get bell with id
 @app.get("/bells/{item_id}")
 def read_bell_item(item_id: int):
-    bell_file_size = len(bell_list)
-    if item_id > bell_file_size :
-        return {f"We have no bell n°{item_id} in our data source":[]}
-    else :
-        bell_file = f"{bell_path}/bell{item_id}.json"
-        return {f"bell n°{item_id}": json.load(open(bell_file))}
-
-
-
-#Get light without id
-@app.get("/lights")
-def read_light():
-    return {f"light n°{k}":json.load(open(os.path.join(light_path, v))) for k,v in (dict(enumerate(light_list,1))).items()}
+   return db["bells"][f"bell {item_id}"]
 
 #Get light with id
 @app.get("/lights/{item_id}")
 def read_light_item(item_id: int):
-    light_file_size = len(light_list)
-    if item_id > light_file_size :
-        return {f"We have no light n°{item_id} in our data source":[]}
-    else :
-        light_file = f"{light_path}/light{item_id}.json"
-        return {f"light n°{item_id}": json.load(open(light_file))}
+   return db["lights"][f"light {item_id}"]
+
+
+###########################################################
+# If we need to access all the data from one source at once
+# WIP
+
+# #Get barrier without id
+@app.get("/barriers")
+def read_barrier():
+   return db["barriers"]
+
+#Get bell without id
+@app.get("/bells")
+def read_bell():
+   return db["bells"]
+
+#Get light without id
+@app.get("/lights")
+def read_light():
+   return db["lights"]
+
+###########################################################
