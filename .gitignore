@@ -1,2 +1,6 @@
+.gitignore
 user cases.PNG
 tests_fastapi
+data
+__pycache__
+*.pyc
