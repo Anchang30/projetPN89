@@ -46,23 +46,20 @@ def read_light_item(item_id: int):
    return db["lights"][f"light {item_id}"]
 
 
-###########################################################
 # If we need to access all the data from one source at once
-# WIP
 
-# #Get barrier without id
+# #Get barriers without id
 @app.get("/barriers")
 def read_barrier():
    return db["barriers"]
 
-#Get bell without id
+#Get bells without id
 @app.get("/bells")
 def read_bell():
    return db["bells"]
 
-#Get light without id
+#Get lights without id
 @app.get("/lights")
 def read_light():
    return db["lights"]
 
-###########################################################
