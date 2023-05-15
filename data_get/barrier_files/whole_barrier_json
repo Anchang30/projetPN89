@@ -1,0 +1,22 @@
+{
+      "barrier 1": {},
+      "barrier 2": {
+            "2023-03-06 18:24:27": {
+                  "device_name": "KIKr-c100x-abcd1234",
+                  "start_time": 1678123467,
+                  "start_angle": 226,
+                  "end_time": 1678123482,
+                  "end_angle": 1
+            }
+      },
+      "barrier 3": {
+            "2023-03-06 18:24:27": {
+                  "device_name": "KIKr-c100x-abcd1234",
+                  "start_time": 1678123467,
+                  "start_angle": 226,
+                  "end_time": 1678123482,
+                  "end_angle": 1
+            }
+      },
+      "barrier 4": {}
+}

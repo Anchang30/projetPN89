@@ -1,0 +1,26 @@
+{
+      "1684166090": [
+            {
+                  "GENERIC_DATA": [
+                        {
+                              "device_name": "bar-c100x-efgh2345",
+                              "start_time": 1678123555,
+                              "end_time": 167812364,
+                              "start_angle": 0,
+                              "end_angle": 90
+                        }
+                  ]
+            },
+            {
+                  "GENERIC_DATA": [
+                        {
+                              "device_name": "bar-c100x-efgh2345",
+                              "start_time": 1678123555,
+                              "end_time": 167812364,
+                              "start_angle": 0,
+                              "end_angle": 90
+                        }
+                  ]
+            }
+      ]
+}

@@ -1,0 +1,12 @@
+[
+    {
+        "881235": [
+            {
+                "device_name": "lig-c100x-abcd1234",
+                "channel": 1,
+                "start_time": 1683012695,
+                "end_time": 1683012760
+            }
+        ]
+    }
+]

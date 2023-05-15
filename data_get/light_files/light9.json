@@ -1,0 +1,12 @@
+[
+    {
+        "GENERIC_DATA": [
+            {
+                "device_name": "lig-c100x-efgh5678",
+                "channel": 2,
+                "start_time": 1678123467,
+                "end_time": 1678123482
+            }
+        ]
+    }
+]

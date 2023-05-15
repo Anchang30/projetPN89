@@ -1,40 +1,37 @@
 import json
-from main import read_barrier, read_bell, read_light
 import requests
+from datetime import datetime
 
-# Fonction pour récupérer automatiquement les données sur le serveur Uvicorn
+# Fonctions pour récupérer automatiquement les données sur le serveur Uvicorn
+# A MODIFIER SELON L'ADRESSE UTILISÉE
+url = "http://127.0.0.1:8000/" 
 
+# Récupère le statut du serveur, s'il y a des nouvelles données
+def check_serv_status(db_size : int):
+    response = get_data()
+    serv_size = len(response)
+    if serv_size > db_size:
+        return f"{serv_size - db_size} new data available"
 
-url = "http://127.0.0.1:8000/"
+# Récupère la taille des données serveur
+def get_serv_size():
+    return len(get_data())
 
-def get_barriers():
-    query = url + "barriers"
-    response_bar = requests.get(query).json()
-    save_file = open("data/barrier_files/all_barriers_json", "w")
-    json.dump(response_bar, save_file, indent= 6)
-    print("barriers JSON file saved !")
-    save_file.close()
+# Récupère toutes les données serveur
+def get_data():
+    response = requests.get(url).json()
+    return response    
 
-def get_bells():
-    query = url + "bells"
-    response_bel = requests.get(query).json()
-    save_file = open("data/bell_files/all_bells_json", "w")
-    json.dump(response_bel, save_file, indent= 6)
-    print("bells JSON file saved !")
-    save_file.close()
+# Ajoute les dernières données dans le fichier log.json
+# Modifier l'extension en log.txt quand j'aurai fini
 
-def get_lights():
-    query = url + "lights"
-    response_lg = requests.get(query).json()
-    save_file = open("data/light_files/all_lights_json", "w")
-    json.dump(response_lg, save_file, indent= 6)
-    print("lights JSON file saved !")
-    save_file.close()
-
-def read_json():
-    print("LOADING SAVED JSON")
-    f = open("data/barrier_files/whole_barrier_json")
-    my_json_file = json.load(f)
-    print(my_json_file)
-        
-
+def add_log_entry(new_entry : dict):
+    ## Changer le path après avoir fini le setup dev
+    json_file = open("log.json", "r")
+    log = json.load(json_file)
+    json_file.close()
+    log.update({int(datetime.now().timestamp()):new_entry})
+    ## Changer le path après avoir fini le setup dev
+    file = open("log.json","w")
+    json.dump(log,file, indent=6)
+    file.close()
