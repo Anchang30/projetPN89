@@ -1,19 +1,24 @@
-from db import Barrier, Bell, Light, instanciate_captors
+from db import instanciate_captors
 from get_data import *
-from services import start_service, update_db
+from services import start_service, update_db, msg_data, print_db, print_new_data, print_get_data
 import schedule, time
 
-# Instanciate the recevor Database
-db_size = 0
-db_get_list = []
-captors = instanciate_captors()
-db_cur = []
-# Regular task checking for new data
-serv_size = get_serv_size()
+# Instanciate the recepting Database
 
-schedule.every(10).seconds.do(start_service, db_get_list= db_get_list, db_get_cur= db_cur)
+captors= instanciate_captors()
 
-schedule.every(10).seconds.do(update_db, captors = captors, db_cur= db_cur)
+schedule.every(13).seconds.do(msg_data)
+time.sleep(1)
+schedule.every(13).seconds.do(start_service)
+time.sleep(1)
+schedule.every(13).seconds.do(print_get_data)
+time.sleep(1)
+schedule.every(13).seconds.do(print_new_data)
+time.sleep(1)
+schedule.every(13).seconds.do(update_db, captors= captors)
+time.sleep(1)
+schedule.every(13).seconds.do(print_db, captors= captors)
+time.sleep(1)
 
 ####################################################################
 
