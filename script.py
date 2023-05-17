@@ -1,32 +1,24 @@
-from db import instanciate_captors
+from db import instanciate_sensors
 from get_data import *
-from services import start_service, update_db ,get_uc_tocheck, uc_proc\
-    # ,msg_data, print_db, print_new_data, print_get_data
+from services import start_service, update_db ,get_uc_tocheck, uc_proc, logfile_name, create_logfile
 import schedule, time
 
-# Instanciate the recepting Database
-
-captors= instanciate_captors()
-
-# schedule.every(13).seconds.do(msg_data)
-# time.sleep(1)
-
-schedule.every(13).seconds.do(start_service)
+# CHECKS IF LOGS FOLDER
+log_name = create_logfile()
+#CREATES A NEW LOGFILE IN IT
+create_logfile(log_name)
+# Instanciates the recepting Database
+sensors= instanciate_sensors()
+# Checks if new data available
+schedule.every(13).seconds.do(start_service(log_name= log_name))
 time.sleep(1)
-
-# schedule.every(13).seconds.do(print_get_data)
-# time.sleep(1)
-# schedule.every(13).seconds.do(print_new_data)
-# time.sleep(1)
-
-schedule.every(13).seconds.do(update_db, captors= captors)
+# Updates database if new data
+schedule.every(13).seconds.do(update_db, sensors= sensors)
 time.sleep(1)
-
+# Creates a list with new values on which user cases apply
 schedule.every(13).seconds.do(get_uc_tocheck)
+# Processes with use cases and clean the previous list for a new iteration
 schedule.every(13).seconds.do(uc_proc)
-
-# schedule.every(13).seconds.do(print_db, captors= captors)
-# time.sleep(1)
 
 while True:
     schedule.run_pending()

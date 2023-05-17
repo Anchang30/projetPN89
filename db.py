@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 
-# Classes pour les 3 types de capteurs
-
+# Classes for the 3 types of sensors
 class Barrier(BaseModel):
    device_name : str
    start_time : int= 0
@@ -49,8 +48,24 @@ class Light(BaseModel):
       self.start_time = new_values['start_time']
       self.end_time = new_values['end_time']
    
+#######################################################
+# Instanciates the 3 sensors classes
 
-captors_dict = {
+def instanciate_sensors ():
+   sensors = sensors_dict
+   for barrier in sensors.keys():
+      sensors[barrier]["cur"]= Barrier(device_name=barrier)
+      sensors[barrier]["prev"]= Barrier(device_name=barrier)
+      for light in sensors[barrier]["associated_light"]:
+         sensors[barrier]["associated_light"][light]= Light(device_name=light)
+      for bell in sensors[barrier]['associated_bell']:
+         sensors[barrier]['associated_bell'][bell]= Bell(device_name=bell)
+   return sensors
+
+#######################################################
+# Raw_data needed everytime
+
+sensors_dict = {
       "bar-c100x-abcd1234": {"cur": "", "prev" : "", 
             "associated_light": {"lig-l500X-abcd1234": "", "lig-l500X-efgh2345": ""},
             "associated_bell": {"bel-z200X-abcd1234": ""}
@@ -81,15 +96,3 @@ associated_barriers = {'lig-l500X-abcd1234' : "bar-c100x-abcd1234",
                         'lig-l500X-klmn0123': "bar-c100x-mnop4567"    
 }
 
-# Instanciates the 3 captors classes
-
-def instanciate_captors ():
-   captors = captors_dict
-   for barrier in captors.keys():
-      captors[barrier]["cur"]= Barrier(device_name=barrier)
-      captors[barrier]["prev"]= Barrier(device_name=barrier)
-      for light in captors[barrier]["associated_light"]:
-         captors[barrier]["associated_light"][light]= Light(device_name=light)
-      for bell in captors[barrier]['associated_bell']:
-         captors[barrier]['associated_bell'][bell]= Bell(device_name=bell)
-   return captors
