@@ -15,13 +15,21 @@ class Barrier(BaseModel):
       list_of_status = ["inactive","up", "down", "irregular"]
       if new_status not in list_of_status :
          print ("This status is unknown")
-      self.curr_status = new_status
+      self.status = new_status
    
    def update_barrier(self, new_values : dict):
       self.start_time = new_values['start_time']
       self.end_time = new_values['end_time']
       self.start_angle = new_values['start_angle']
       self.end_angle = new_values['end_angle']
+      
+   def update_barrier_status(self):
+      if self.start_angle - self.end_angle > 0 and self.end_angle == 0 :
+         self.change_status("down")
+      elif self.start_angle - self.end_angle < 0 and self.end_angle == 90 :
+         self.change_status("up")
+      else :
+         self.change_status("irregular")
       
 class Bell(BaseModel):
    device_name : str
@@ -41,7 +49,6 @@ class Light(BaseModel):
       self.start_time = new_values['start_time']
       self.end_time = new_values['end_time']
    
-# Instanciates the 3 captors classes
 
 captors_dict = {
       "bar-c100x-abcd1234": {"cur": "", "prev" : "", 
@@ -61,6 +68,20 @@ captors_dict = {
             "associated_bell": {"bel-z200X-mnop4567": ""}
             }
       }
+
+associated_barriers = {'lig-l500X-abcd1234' : "bar-c100x-abcd1234",
+                       'lig-l500X-efgh2345' : "bar-c100x-abcd1234",
+                       'lig-l500X-ijkl3456' :"bar-c100x-efgh2345",
+                        'lig-l500X-mnop4567': "bar-c100x-efgh2345",
+                        'lig-l500X-qrst5678': "bar-c100x-ijkl3456",
+                        'lig-l500X-uvwx6789': "bar-c100x-ijkl3456",
+                        'lig-l500X-yzab7890': "bar-c100x-ijkl3456",
+                        'lig-l500X-cdef8901': "bar-c100x-mnop4567",
+                        'lig-l500X-ghij9012': "bar-c100x-mnop4567",
+                        'lig-l500X-klmn0123': "bar-c100x-mnop4567"    
+}
+
+# Instanciates the 3 captors classes
 
 def instanciate_captors ():
    captors = captors_dict
