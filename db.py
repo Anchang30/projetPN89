@@ -3,37 +3,31 @@ from pydantic import BaseModel
 # Classes for the 3 types of sensors
 class Barrier(BaseModel):
    device_name : str
-   start_time : int= 0
-   start_angle : int= 0
-   end_time : int= 0
-   end_angle : int= 0
+   start_time : float = 0
+   start_angle : float = 0
+   end_time : int = 0
+   end_angle : int = 0
    status : str = "inactive"
-   
-   def change_status(self, new_status : str):
-      new_status = new_status.lower()
-      list_of_status = ["inactive","up", "down", "irregular"]
-      if new_status not in list_of_status :
-         print ("This status is unknown")
-      self.status = new_status
    
    def update_barrier(self, new_values : dict):
       self.start_time = new_values['start_time']
       self.end_time = new_values['end_time']
       self.start_angle = new_values['start_angle']
       self.end_angle = new_values['end_angle']
+      return self
       
    def update_barrier_status(self):
       if self.start_angle - self.end_angle > 0 and self.end_angle == 0 :
-         self.change_status("down")
+         self.status = "down"
       elif self.start_angle - self.end_angle < 0 and self.end_angle == 90 :
-         self.change_status("up")
+         self.status = "up"
       else :
-         self.change_status("irregular")
-      
+         self.status = "irregular"
+        
 class Bell(BaseModel):
    device_name : str
    start_time : int = 0
-   end_time : int= 0
+   end_time : int = 0
    
    def update_bell(self, new_values : dict):
       self.start_time = new_values['start_time']
@@ -41,8 +35,8 @@ class Bell(BaseModel):
    
 class Light(BaseModel):
    device_name : str
-   start_time : int= 0
-   end_time : int= 0
+   start_time : int = 0
+   end_time : int = 0
    
    def update_light(self, new_values : dict):
       self.start_time = new_values['start_time']

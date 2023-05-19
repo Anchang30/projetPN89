@@ -50,4 +50,12 @@ Les barrières se relèvent et les feux s'éteignent lorsque le train finit de p
 0,0,0,1,0,0,0,0,1,0,1,0,0,0,0,1,0,0,1,0
 PN 1,2,1,1,2,1,1,2,2,1,1,2,1,1,2,1,2,1,2,1
 
+{"captor_list" : {"barrier_list" : 
+    ["bar-c100x-abcd1234", "bar-c100x-efgh2345", "bar-c100x-ijkl3456", "bar-c100x-mnop4567"],
+"bell_list" : 
+    ["bel-z200X-abcd1234", "bel-z200X-efgh2345", "bel-z200X-ijkl3456", "bel-z200X-mnop4567"],
+"light_list" : ["lig-l500X-abcd1234", "lig-l500X-efgh2345", "lig-l500X-ijkl3456", "lig-l500X-mnop4567",
+    "lig-l500X-qrst5678", "lig-l500X-uvwx6789", "lig-l500X-yzab7890", "lig-l500X-cdef8901",
+        "lig-l500X-ghij9012", "lig-l500X-klmn0123"]}}
 
+{"barrier_not_down":{}, "barrier_is_long":{}, "barrier_is_irregular": {}}
