@@ -1,6 +1,5 @@
 from get_data import add_log_entry, check_serv_status, get_data, get_serv_size, logfile_name
 from use_cases import barrier_islong, barrier_isregular, barrier_not_down
-import os
 
 db_size = 0
 new_data = []

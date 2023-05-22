@@ -1,0 +1,60 @@
+
+Le 2 mai 2023, 12 trains passent par PN1 et 8 par PN2. 
+Le timestamp correspond au passage du train sur le dispositif de signalisation (pédale ou circuit de voie) qui va enclencher la séquence d'avertissement et de sécurisation du PN.
+
+Les feux de signalisation et les alarmes sont déclenchées lorsque le dispositif est engagé par le passage d'un train en amont.
+Les barrières doivent se baisser 8 secondes après l'engagement, pour une durée max de 12s.
+L'alarme sonore d'arrête quand les barrière sont baissées.
+
+Le passage d'un train au passage à niveau prend 45s dans cet exemple de projet.
+Les barrières doivent rester baissées pendant la durée du passage.
+
+Les barrières se relèvent et les feux s'éteignent lorsque le train finit de passer.
+
+1 - train 881235 sur PN1 (barrières 1 et 2)  à 07:31:35 : 1683012695 
+
+2 - train 2256 sur PN2 (barrières 3 et 4)  à 08:26:12 : 1683015972
+
+3 - train 881766 sur PN1 à 08:31:16 : 1683016276
+4 - train 880447 sur PN1 à 08:56:44 : 1683017804 (probleme)
+
+5 - train 881235 sur PN2 à 10:11:44 : 1683022304
+
+6 - train 2389 sur PN1 à 11:24:02 : 1683026642
+7 - train 882559 sur PN1 à 11:36:11 : 1683027371 
+
+8 - train 881766 sur PN2 à 11:45:11 : 1683027911
+9 - train 880447 sur PN2 à 12:05:16 : 1683029116 (probleme)
+
+10 - train 1759 sur PN1 à 12:30:16 : 1683030616
+11 - train 97653 sur PN1 à 12:57:28 : 1683032248 (probleme)
+
+12 - train 2357 sur PN2 à 13:13:13 : 1683033193
+
+13 - train 883496 sur PN1 à 14:01:56 : 1683036116 
+14 - train 875963 sur PN1 à 14:11:23 : 1683036683 
+
+15 - train 882559 sur PN2 à 15:00:46 : 1683039646 
+
+16 - train 1356 sur PN1 à 15:32:45 : 1683041565 (probleme)
+
+17 - train 5562 sur PN2 à 16:03:46 :1683043426
+
+18 - train 881236 sur PN1 à 16:33:21 :1683045201
+
+19 - train 880465 sur PN2 à 17:13:56 :1683047636 (probleme)
+
+20 - train 5573 sur PN1 à 17:26:10 1683048370
+
+0,0,0,1,0,0,0,0,1,0,1,0,0,0,0,1,0,0,1,0
+PN 1,2,1,1,2,1,1,2,2,1,1,2,1,1,2,1,2,1,2,1
+
+{"captor_list" : {"barrier_list" : 
+    ["bar-c100x-abcd1234", "bar-c100x-efgh2345", "bar-c100x-ijkl3456", "bar-c100x-mnop4567"],
+"bell_list" : 
+    ["bel-z200X-abcd1234", "bel-z200X-efgh2345", "bel-z200X-ijkl3456", "bel-z200X-mnop4567"],
+"light_list" : ["lig-l500X-abcd1234", "lig-l500X-efgh2345", "lig-l500X-ijkl3456", "lig-l500X-mnop4567",
+    "lig-l500X-qrst5678", "lig-l500X-uvwx6789", "lig-l500X-yzab7890", "lig-l500X-cdef8901",
+        "lig-l500X-ghij9012", "lig-l500X-klmn0123"]}}
+
+{"barrier_not_down":{}, "barrier_is_long":{}, "barrier_is_irregular": {}}

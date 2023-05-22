@@ -1,0 +1,62 @@
+1683016276
+
+SONNERIES--------------------------------------------------------
+
+[{"GENERIC_DATA": [
+{"device_name": "bel-z200X-abcd1234",
+"start_time": 1683016276,
+"end_time": 1683016296
+}]}]
+
+[{"GENERIC_DATA": [
+{"device_name": "bel-z200X-efgh2345",
+"start_time": 1683016276,
+"end_time": 1683016296}]}]
+LUMIERES--------------------------------------------------------
+
+[{"GENERIC_DATA": [
+{"device_name": "lig-l500X-abcd1234",
+"start_time": 1683016276,
+"end_time": 1683016327
+}]},
+{"GENERIC_DATA": [
+{"device_name": "lig-l500X-efgh2345",
+"start_time": 1683016276,
+"end_time": 1683016327}]}]
+
+[{"GENERIC_DATA": [
+{"device_name": "lig-l500X-ijkl3456",
+"start_time": 1683016276,
+"end_time": 1683016327
+}]},
+{"GENERIC_DATA": [
+{"device_name": "lig-l500X-mnop4567",
+"start_time": 1683016276,
+"end_time": 1683016327}]}]
+BARRIERES--------------------------------------------------------
+
+[{"GENERIC_DATA": [
+{"device_name": "bar-c100x-abcd1234",
+"start_time": 1683016284,
+start_angle: 90.0
+"end_time": 1683016339
+end_angle: 0.0}]},
+{"GENERIC_DATA": [
+{"device_name": "bar-c100x-abcd1234",
+"start_time": 1683016284,
+start_angle: 0.0
+"end_time": 1683016339
+end_angle: 90.0}]}]
+
+[{"GENERIC_DATA": [
+{"device_name": "bar-c100x-efgh2345",
+"start_time": 1683016284,
+start_angle: 90.0
+"end_time": 1683016339
+end_angle: 0.0}]},
+{"GENERIC_DATA": [
+{"device_name": "bar-c100x-efgh2345",
+"start_time": 1683016284,
+start_angle: 0.0
+"end_time": 1683016339
+end_angle: 90.0}]}]

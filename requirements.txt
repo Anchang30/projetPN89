@@ -1,9 +1,0 @@
-FastAPI
-typing
-json
-requests
-datetime
-pydantic
-schedule
-time
-os
