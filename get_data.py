@@ -3,9 +3,20 @@ import requests
 from datetime import datetime
 import os
 
+##################################################################
+# TO BE IMPLEMENTED :
+# CHANGE ADDRESS TO Point toward the server used and Elastic
+# Modify the log_error function to store these info in the Elastic 
+
 # Functions to get informations from Uvicorn server
 #### A MODIFIER SELON L'ADRESSE UTILISÉE
 url = "http://127.0.0.1:8000/" 
+##################################################################
+
+
+# Gets all data from server
+def get_data():
+    return requests.get(url).json()
 
 # Gets server size to remember where to continue parsing
 def get_serv_size():
@@ -16,45 +27,23 @@ def check_serv_status(db_size : int):
     serv_size = get_serv_size()
     if serv_size > db_size:
         return f"{serv_size - db_size} new data available"
-
-# Gets all data from server
-def get_data():
-    return requests.get(url).json()
-
-# CREATES LOG FOLDER IF IT DOESNT EXIST AND RETURN THE NB OF LOG FILES IN IT
+    
+# CREATES LOG FOLDER IF IT DOESNT EXIST AND RETURN THE NB OF LOG FILES IN IT 
+# TO GENERATE THE NAME OF THE CURRENT LOG FILE
 def logfile_name():
     path_ = os.getcwd()
     log_path = os.path.join(os.getcwd(), "logs")
     if "logs" not in os.listdir(path_):
         os.mkdir(log_path)
-    len_json = len([doc for doc in os.listdir(log_path) if doc.startswith("log") and doc.endswith(".json")])
+    len_json = len([doc for doc in os.listdir(log_path) if doc.startswith("log") and doc.endswith(".txt")])
     if len_json == 0:
-        return "log.json"
+        return "log.txt"
     else :
-        return f"log{len_json-1}.json"
+        return f"log{len_json}.txt"
 
-# CREATES A NEW LOGFILE FOR EACH NEW SESSION    
-def create_logfile(log_name : str):
-    log_path = os.path.join(os.getcwd(), "logs")
-    logfile_path = os.path.join(log_path, log_name)
-    print('Creating log file')
-    with open(logfile_path, "w") as f:
-        f.write("{}")
-    f.close()
-    
-# Adds new data as entry in the JSON logfile
-#### Modifier l'extension en log.txt quand j'aurai fini
-def add_log_entry(new_entry : dict, log_name :str):
-    log_path = os.path.join(os.getcwd(), "logs")
-    logfile_path = os.path.join(log_path, log_name)
-    json_file = open(logfile_path, "r")
-    log = json.load(json_file)
-    json_file.close()
-    log.update({int(datetime.now().timestamp()):new_entry})
-    file = open(logfile_path,"w")
-    json.dump(log, file, indent=6)
-    file.close()
-
+# IF A USE CASE IS VALIDATED (THERE'S AN ERROR), THIS FUNCTION SENDS AN ERROR MESSAGE TO
+# A LOG_ERRORS FILE (JSON FOR NOW).
+# TBI : LINK THIS TO ELASTIC SEARCH
 def add_log_error (new_entry : dict, error_type : str):
     log_error_name = os.path.join(os.getcwd(), "log_errors.json")
     error_file = open(log_error_name, "r")

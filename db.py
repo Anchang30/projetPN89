@@ -17,9 +17,9 @@ class Barrier(BaseModel):
       return self
       
    def update_barrier_status(self):
-      if self.start_angle - self.end_angle > 0 and self.end_angle == 0 :
+      if self.start_angle > self.end_angle and self.end_angle == 0 :
          self.status = "down"
-      elif self.start_angle - self.end_angle < 0 and self.end_angle == 90 :
+      elif self.start_angle < self.end_angle and self.end_angle == 90 :
          self.status = "up"
       else :
          self.status = "irregular"

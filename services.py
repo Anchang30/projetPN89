@@ -1,10 +1,17 @@
-from get_data import add_log_entry, check_serv_status, get_data, get_serv_size, logfile_name
+from get_data import  *
 from use_cases import barrier_islong, barrier_isregular, barrier_not_down
+import logging
+from importlib import reload
+import os
 
 db_size = 0
 new_data = []
 uc_to_check = []
 log_name = logfile_name()
+log_path = os.path.join(os.getcwd(), "logs", log_name)
+reload(logging)
+logging.basicConfig(filename=log_path, encoding='utf-8', \
+    level=logging.INFO ,format='%(asctime)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S')
 
 # CHECKS IF NEW DATA AVAILABLE, STORE THEM IN NEW_DATA AND SAVE LOG_ENTRY
 def start_service():   
@@ -15,7 +22,7 @@ def start_service():
     new_data = []
     print(f"{get_serv_size() - db_size} new data available")
     if check_serv_status(db_size) :
-        add_log_entry(get_data()[db_size:], log_name) 
+        logging.info(get_data()[db_size:])
         new_data = get_data()[db_size:]
     db_size = get_serv_size()
 
@@ -27,8 +34,7 @@ def update_db(sensors):
         for i in new_data[0]:
             id = i['GENERIC_DATA'][0]['device_name'] 
             if id.startswith("bar"):
-                barrier_pre = sensors[id].get("prev")
-                barrier_cur = sensors[id].get("cur")
+                barrier_pre, barrier_cur = sensors[id].get("prev"), sensors[id].get("cur")
                 barrier_pre.update_barrier(barrier_cur.__dict__).update_barrier_status()
                 barrier_cur.update_barrier(i['GENERIC_DATA'][0]).update_barrier_status()
             if id.startswith("bel"):
