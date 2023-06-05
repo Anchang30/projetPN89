@@ -17,12 +17,10 @@ class Barrier(BaseModel):
       return self
       
    def update_barrier_status(self):
-      if self.start_angle > self.end_angle and self.end_angle == 0 :
-         self.status = "down"
-      elif self.start_angle < self.end_angle and self.end_angle == 90 :
-         self.status = "up"
-      else :
-         self.status = "irregular"
+      if self.start_angle > self.end_angle :
+         self.status = "lower"
+      elif self.start_angle < self.end_angle :
+         self.status = "rise"
         
 class Bell(BaseModel):
    device_name : str
@@ -43,36 +41,37 @@ class Light(BaseModel):
       self.end_time = new_values['end_time']
    
 #######################################################
-# Instanciates the 3 sensors classes
+# Instanciates the 3 sensor classes
 
 def instanciate_sensors ():
    sensors = sensors_dict
    for barrier in sensors.keys():
-      sensors[barrier]["cur"]= Barrier(device_name=barrier)
-      sensors[barrier]["prev"]= Barrier(device_name=barrier)
+      sensors[barrier]["lower"]= Barrier(device_name=barrier)
+      sensors[barrier]["rise"]= Barrier(device_name=barrier)
       for light in sensors[barrier]["associated_light"]:
          sensors[barrier]["associated_light"][light]= Light(device_name=light)
       for bell in sensors[barrier]['associated_bell']:
          sensors[barrier]['associated_bell'][bell]= Bell(device_name=bell)
    return sensors
 
+
 #######################################################
 # Raw_data needed everytime
 
 sensors_dict = {
-      "bar-c100x-abcd1234": {"cur": "", "prev" : "", 
+      "bar-c100x-abcd1234": {"lower": "", "rise" : "", 
             "associated_light": {"lig-l500X-abcd1234": "", "lig-l500X-efgh2345": ""},
             "associated_bell": {"bel-z200X-abcd1234": ""}
             },
-      "bar-c100x-efgh2345": {"cur": "", "prev" : "", 
+      "bar-c100x-efgh2345": {"lower": "", "rise" : "", 
             "associated_light": {"lig-l500X-ijkl3456": "", "lig-l500X-mnop4567": ""},
             "associated_bell": {"bel-z200X-efgh2345": ""}
             },
-      "bar-c100x-ijkl3456": {"cur": "","prev" : "", 
+      "bar-c100x-ijkl3456": {"lower": "","rise" : "", 
             "associated_light": {"lig-l500X-qrst5678": "", "lig-l500X-uvwx6789": "", "lig-l500X-yzab7890": ""},
             "associated_bell": {"bel-z200X-ijkl3456": ""}
             },
-      "bar-c100x-mnop4567": {"cur": "", "prev": "",
+      "bar-c100x-mnop4567": {"lower": "", "rise": "",
             "associated_light": {"lig-l500X-cdef8901": "", "lig-l500X-ghij9012": "", "lig-l500X-klmn0123": ""},
             "associated_bell": {"bel-z200X-mnop4567": ""}
             }
@@ -80,7 +79,7 @@ sensors_dict = {
 
 associated_barriers = {'lig-l500X-abcd1234' : "bar-c100x-abcd1234",
                        'lig-l500X-efgh2345' : "bar-c100x-abcd1234",
-                       'lig-l500X-ijkl3456' :"bar-c100x-efgh2345",
+                       'lig-l500X-ijkl3456' : "bar-c100x-efgh2345",
                         'lig-l500X-mnop4567': "bar-c100x-efgh2345",
                         'lig-l500X-qrst5678': "bar-c100x-ijkl3456",
                         'lig-l500X-uvwx6789': "bar-c100x-ijkl3456",
@@ -89,4 +88,3 @@ associated_barriers = {'lig-l500X-abcd1234' : "bar-c100x-abcd1234",
                         'lig-l500X-ghij9012': "bar-c100x-mnop4567",
                         'lig-l500X-klmn0123': "bar-c100x-mnop4567"    
 }
-

@@ -10,6 +10,7 @@ JSONStructure = Union[JSONArray, JSONObject]
 
 #########################################################
 ## POST SECTION
+## For dev purposes only
 
 @app.post("/")
 def post_root(arbitrary_json: JSONStructure = None):

@@ -14,6 +14,7 @@ SONNERIES--------------------------------------------------------
 "end_time": 1683029136
 }]}]
 
+
 LUMIERES--------------------------------------------------------
 
 [{"GENERIC_DATA": [
@@ -36,30 +37,31 @@ LUMIERES--------------------------------------------------------
 "start_time": 1683029116,
 "end_time": 1683029167}]}]
 
+
 BARRIERES--------------------------------------------------------
 
 [{"GENERIC_DATA": [
 {"device_name": "bar-c100x-ijkl3456",
 "start_time": 1683029124,
-start_angle: 90.0
-"end_time": 1683029179
-end_angle: 0.0}]},
+"start_angle": 90.0,
+"end_time": 1683029136,
+"end_angle": 0.0}]},
 {"GENERIC_DATA": [
 {"device_name": "bar-c100x-ijkl3456",
-"start_time": 1683029124,
-start_angle: 0.0
-"end_time": 1683029179
-end_angle: 90.0}]}]
+"start_time": 1683029167,
+"start_angle": 0.0,
+"end_time": 1683029179,
+"end_angle": 90.0}]}]
 
 [{"GENERIC_DATA": [
 {"device_name": "bar-c100x-mnop4567",
 "start_time": 1683029124,
-start_angle: 90.0
-"end_time": 1683029179
-end_angle: 0.0}]},
+"start_angle": 90.0,
+"end_time": 1683029136,
+"end_angle": 0.0}]},
 {"GENERIC_DATA": [
 {"device_name": "bar-c100x-mnop4567",
-"start_time": 1683029124,
-start_angle: 0.0
-"end_time": 1683029179
-end_angle: 90.0}]}]
+"start_time": 1683029167,
+"start_angle": 0.0,
+"end_time": 1683029181,
+"end_angle": 90.0}]}]

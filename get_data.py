@@ -1,16 +1,17 @@
-import json
 import requests
-from datetime import datetime
 import os
+
+# Functions to get informations from Uvicorn server
 
 ##################################################################
 # TO BE IMPLEMENTED :
 # CHANGE ADDRESS TO Point toward the server used and Elastic
-# Modify the log_error function to store these info in the Elastic 
 
-# Functions to get informations from Uvicorn server
 #### A MODIFIER SELON L'ADRESSE UTILISÉE
 url = "http://127.0.0.1:8000/" 
+
+# Oxygen Platform end point on which data will be posted
+# url= "https://pn89aulnoy.eairlink.com:27023"
 ##################################################################
 
 
@@ -40,16 +41,3 @@ def logfile_name():
         return "log.txt"
     else :
         return f"log{len_json}.txt"
-
-# IF A USE CASE IS VALIDATED (THERE'S AN ERROR), THIS FUNCTION SENDS AN ERROR MESSAGE TO
-# A LOG_ERRORS FILE (JSON FOR NOW).
-# TBI : LINK THIS TO ELASTIC SEARCH
-def add_log_error (new_entry : dict, error_type : str):
-    log_error_name = os.path.join(os.getcwd(), "log_errors.json")
-    error_file = open(log_error_name, "r")
-    log = json.load(error_file)
-    error_file.close()
-    log[error_type].update({int(datetime.now().timestamp()):new_entry})
-    error_file = open(log_error_name,"w")
-    json.dump(log, error_file, indent=6)
-    error_file.close()

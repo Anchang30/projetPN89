@@ -1,28 +1,28 @@
 from db import instanciate_sensors
 from get_data import *
-from services import start_service, update_db ,get_uc_tocheck, uc_proc
+from services import start_service, update_db, uc_proc
 import schedule, time
+from es_management import instanciate_es, create_es_index
 
 
 ##################################################################
 # TBI : Change the time window for checking updates in new data
 ##################################################################
 
-
-#Logging creates a log_file with a new name for each session in the services module
-
 # Instanciates the receiving Database
 sensors= instanciate_sensors()
+# Instanciates the ElasticSearch 
+es = instanciate_es()
+# Creates the index for PN89 if not existant
+create_es_index(es)
 # Checks if new data available
 schedule.every(13).seconds.do(start_service)
 time.sleep(1)
-# If new data, updates database 
+# If new data, updates database and create a list of UC to check
 schedule.every(13).seconds.do(update_db, sensors = sensors)
 time.sleep(1)
-# Creates a list with new values on which user cases apply
-schedule.every(13).seconds.do(get_uc_tocheck)
 # Processes use cases and clean the previous list for a new iteration
-schedule.every(13).seconds.do(uc_proc, sensors = sensors)
+schedule.every(13).seconds.do(uc_proc, es=es, sensors = sensors)
 
 while True:
     schedule.run_pending()
